@@ -1,27 +1,16 @@
-function isValidWalk(walk) {
-    //walk.length == 10 
-    //'n' == 's'
-    //'w' == 'e' 
-    let nCount = 0;
-    let sCount = 0;
-    let wCount = 0;
-    let eCount = 0;
-    for (i = 0; i < walk.length; i++){
-        if (walk[i] === 'n'){
-            nCount ++; 
-        } else if (walk[i] === 's') {
-            sCount ++;
-        } else if (walk[i] === 'w') {
-            wCount ++;
-        } else {
-            eCount ++;
-        }
-    }
-    if(walk.length == 10 && nCount == sCount && wCount == eCount){
-        return true;
-    } else{
-        return false
-    }
+function persistence(num) {
+    num = String(num);
+    let arr = num.split('');
+    let arrResult = [];
+
+    while (arr.length > 1){
+        let result = arr.reduce((acc,item) => acc * item, 1);
+        let string = result.toString();
+        arr = string.split('')
+        arrResult.push(result);
+    } 
+
+    return arrResult.length;
 }
 
-    console.log(isValidWalk(['n','n','n','s','n','s','n','s','n','s']));
+console.log(persistence(999));
