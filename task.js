@@ -1,16 +1,35 @@
-function persistence(num) {
-    num = String(num);
-    let arr = num.split('');
-    let arrResult = [];
+let recipe = {flour: 500, sugar: 200, eggs: 1};
+let available = {flour: 1200, sugar: 1200, eggs: 5, milk: 200}; 
 
-    while (arr.length > 1){
-        let result = arr.reduce((acc,item) => acc * item, 1);
-        let string = result.toString();
-        arr = string.split('')
-        arrResult.push(result);
-    } 
+function cakes(recipe, available) {
+    arr =[];
+    let result = [];
+    for (let i in recipe){
+        for (let j in available){
+            if(i == j){
+                    result.push(available[j] / recipe[i]);
+                }
+            }
+    }
 
-    return arrResult.length;
+    result.sort((a, b) => a - b)
+
+    for (let i in recipe){
+        arr.push(available.hasOwnProperty(i));
+        if (arr.includes(false)){
+            return 0
+        } else{
+            return Math.round(result[0])
+        }
+    }
 }
 
-console.log(persistence(999));
+        //arr.push(available.hasOwnProperty(i));
+        //if (arr.includes(false)){
+        //   return 0
+        //} else{
+        //    return result
+        //}
+
+
+console.log(cakes(recipe, available));
