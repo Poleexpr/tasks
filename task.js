@@ -19,17 +19,10 @@ function cakes(recipe, available) {
         if (arr.includes(false)){
             return 0
         } else{
-            return Math.round(result[0])
+            return Math.floor(result[0])
         }
     }
 }
-
-        //arr.push(available.hasOwnProperty(i));
-        //if (arr.includes(false)){
-        //   return 0
-        //} else{
-        //    return result
-        //}
 
 
 console.log(cakes(recipe, available));
