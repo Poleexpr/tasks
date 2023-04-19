@@ -1,28 +1,12 @@
-let recipe = {flour: 500, sugar: 200, eggs: 1};
-let available = {flour: 1200, sugar: 1200, eggs: 5, milk: 200}; 
+function findOutlier(integers){
+    let odd = integers.filter(item => item % 2 == 0);
+    let even = integers.filter(item => item % 2 != 0);
 
-function cakes(recipe, available) {
-    arr =[];
-    let result = [];
-    for (let i in recipe){
-        for (let j in available){
-            if(i == j){
-                    result.push(available[j] / recipe[i]);
-                }
-            }
-    }
-
-    result.sort((a, b) => a - b)
-
-    for (let i in recipe){
-        arr.push(available.hasOwnProperty(i));
-        if (arr.includes(false)){
-            return 0
-        } else{
-            return Math.floor(result[0])
-        }
-    }
+    if(odd.length == 1){
+        return odd[0]
+    } else {
+        return even[0]
+    }   
 }
 
-
-console.log(cakes(recipe, available));
+ console.log(findOutlier([0, 1, 2]));
