@@ -1,12 +1,12 @@
-function findOutlier(integers){
-    let odd = integers.filter(item => item % 2 == 0);
-    let even = integers.filter(item => item % 2 != 0);
-
-    if(odd.length == 1){
-        return odd[0]
-    } else {
-        return even[0]
-    }   
+function numObj(s){
+  let arr = [];
+  for (let i = 0; i < s.length; i++){
+    let obj = {
+      [s[i]]: String.fromCharCode(s[i])
+    };
+    arr.push(obj);
+  }
+  return arr;
 }
 
- console.log(findOutlier([0, 1, 2]));
+console.log(numObj([121,117,120]));
