@@ -1,13 +1,10 @@
-let salaries = {
-  
+let user = {
+  name: 'John',
+  age: 30
 };
 
-function sumSalaries(salaries){
-  let result = 0;
-  for (let value of Object.values(salaries)) {
-    result += value;
-  }
-  return result;
+function count(user){
+  return Object.values(user).length;
 }
 
-console.log(sumSalaries(salaries));
+console.log(count(user));
