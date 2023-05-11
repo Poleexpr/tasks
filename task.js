@@ -1,12 +1,13 @@
-function numObj(s){
-  let arr = [];
-  for (let i = 0; i < s.length; i++){
-    let obj = {
-      [s[i]]: String.fromCharCode(s[i])
-    };
-    arr.push(obj);
+let salaries = {
+  
+};
+
+function sumSalaries(salaries){
+  let result = 0;
+  for (let value of Object.values(salaries)) {
+    result += value;
   }
-  return arr;
+  return result;
 }
 
-console.log(numObj([121,117,120]));
+console.log(sumSalaries(salaries));
