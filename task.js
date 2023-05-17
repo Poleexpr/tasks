@@ -1,29 +1,15 @@
-function sumTo(n){
-let result = 0;
-for( let i = 0; i <= n; i++){
-  result += i;
-}
-return result;
-}
-
-console.log (sumTo(5));
-
-function sumToR(n){
-  if(n == 0){
-    return 0
-  } else if (n == 1){
-    return 1
+function findOdd(A) {
+  if (A.length == 1){
+    return A[0];
   } else{
-    return n + sumToR(n - 1);
-  }
-  }
-  
-  console.log (sumToR(5));
-
-
-  function sumToS(n){
-    return (1 + n) / 2 * n;
+    const countItems = {};
+    for (const item of A) {
+      countItems[item] = countItems[item] ? countItems[item] + 1 : 1;
     }
-    
-    console.log (sumToS(5));
+    const result = Object.keys(countItems).filter((item) => countItems[item] % 2 != 0);
+    return result.join();
+  }
+}
+
+console.log(findOdd([1,1,2]));
 
