@@ -1,15 +1,13 @@
-function findOdd(A) {
-  if (A.length == 1){
-    return A[0];
-  } else{
-    const countItems = {};
-    for (const item of A) {
-      countItems[item] = countItems[item] ? countItems[item] + 1 : 1;
-    }
-    const result = Object.keys(countItems).filter((item) => countItems[item] % 2 != 0);
-    return result.join();
-  }
-}
 
-console.log(findOdd([1,1,2]));
+const runningSum = function(nums) {
+  const result = [];
+  const a = 0;
+  for (let i = 0; i < nums.length; i++){
+      a += nums[i];
+      result.push(a);
+  }
+  return result;   
+};
+
+console.log(runningSum([1,2,3,4]));
 
