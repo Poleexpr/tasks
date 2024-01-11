@@ -1,13 +1,15 @@
-let containsDuplicate = function(nums) {
-    const arr = nums.sort()
-    for (let i = 0; i < arr.length; i++){
-      if(arr[i] == arr[i+1]){
-        return true
-      } else {
-        return false
-      }
+"use strict";
+function pivotIndex(nums) {
+    //start to sum start nums and end nums
+    //if sum of start nums === sum of end nums return i
+    const sum = nums.reduce((prev, cur) => prev + cur, 0);
+    let sumLeft = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (sum - nums[i] - sumLeft === sumLeft) {
+            return i;
+        }
+        sumLeft += nums[i];
     }
-};
-
-console.log(containsDuplicate([1,1,1,3,3,4,3,2,4,2]));
-
+    return -1;
+}
+pivotIndex([1, 7, 3, 6, 5, 6]);
