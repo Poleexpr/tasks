@@ -1,5 +1,7 @@
-function plusOne(digits) {
-    var result = BigInt(digits.join('')) + BigInt(1);
-    return result.toString().split('');
+function createCounter(n) {
+    return function () {
+        return ++n;
+    };
 }
-console.log(plusOne([3, 6, 1, 0]));
+var counter = createCounter(-2);
+console.log(counter(), counter(), counter());
