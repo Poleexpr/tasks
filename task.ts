@@ -1,9 +1,24 @@
-function createCounter(n: number): () => number {
-	return () => {
-		return ++n
+type Counter = {
+	increment: () => number
+	decrement: (init: number) => number
+	reset: (init: number) => number
+}
+
+function createCounter(init: number): Counter {
+	let i = init
+	return {
+		increment: () => {
+			return ++i
+		},
+		reset: () => {
+			return init
+		},
+		decrement: () => {
+			return --i
+		},
 	}
 }
 
-let counter = createCounter(-2)
+const counter = createCounter(0)
 
-console.log(counter(), counter(), counter())
+console.log(counter.increment())
