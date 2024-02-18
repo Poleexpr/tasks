@@ -1,34 +1,19 @@
-type Fn = (n: number, i: number) => any
+type Fn = (accum: number, curr: number) => number
 
-function curry(f: Fn) {
-	return function (a: number) {
-		return function (b: number) {
-			return f(a, b)
-		}
-	}
-}
-
-function filter(arr: number[], fn: Fn): number[] {
-	const result = []
-	let curriedFn = curry(fn)
-
-	console.log(curriedFn)
-	for (let i = 0; i < arr.length; i++) {
-		if (curriedFn(arr[i])) {
-			result.push(arr[i])
-		}
-		if (curriedFn(i)) {
-			result.push(i)
-		}
+function reduce(nums: number[], fn: Fn, init: number): number {
+	for (let i = 0; i < nums.length; i++) {
+		init = fn(init, nums[i])
+		console.log(init)
 	}
 
-	return result
+	return init
 }
 
-let arr = [0, 10, 20, 30]
+let arr = [1, 2, 3, 4]
 
-function greaterThan10(n: number) {
-	return n > 10
+function sum(accum: number, curr: number) {
+	return accum + curr * curr
 }
+const init = 100
 
-console.log(filter(arr, greaterThan10))
+console.log(reduce(arr, sum, init))

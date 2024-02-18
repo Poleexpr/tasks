@@ -1,26 +1,13 @@
-function curry(f) {
-    return function (a) {
-        return function (b) {
-            return f(a, b);
-        };
-    };
-}
-function filter(arr, fn) {
-    var result = [];
-    var curriedFn = curry(fn);
-    console.log(curriedFn);
-    for (var i = 0; i < arr.length; i++) {
-        if (curriedFn(arr[i])) {
-            result.push(arr[i]);
-        }
-        if (curriedFn(i)) {
-            result.push(i);
-        }
+function reduce(nums, fn, init) {
+    for (var i = 0; i < nums.length; i++) {
+        init = fn(init, nums[i]);
+        console.log(init);
     }
-    return result;
+    return init;
 }
-var arr = [0, 10, 20, 30];
-function greaterThan10(n) {
-    return n > 10;
+var arr = [1, 2, 3, 4];
+function sum(accum, curr) {
+    return accum + curr * curr;
 }
-console.log(filter(arr, greaterThan10));
+var init = 100;
+console.log(reduce(arr, sum, init));
