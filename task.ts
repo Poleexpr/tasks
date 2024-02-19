@@ -1,18 +1,11 @@
-type Fn = (accum: number, curr: number) => number
+type F = (x: number) => number;
 
-function reduce(nums: number[], fn: Fn, init: number): number {
-	for (let i = 0; i < nums.length; i++) {
-		init = fn(init, nums[i])
-	}
-
-	return init
-}
-
-let arr = [1, 2, 3, 4]
-
-function sum(accum: number, curr: number) {
-	return accum + curr * curr
-}
-const init = 100
-
-console.log(reduce(arr, sum, init))
+function compose(functions: F[]): F {
+    
+    return function(x) {
+        for (let i = functions.length -1; i >= 0; i--){
+            x = functions[i](x)
+        }
+        return x
+    }
+};
