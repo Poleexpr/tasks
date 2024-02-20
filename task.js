@@ -1,9 +1,8 @@
-function compose(functions) {
-    return function (x) {
-        for (var i = functions.length - 1; i >= 0; i--) {
-            x = functions[i](x);
-        }
-        return x;
-    };
+function argumentsLength() {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    return args.length;
 }
 ;

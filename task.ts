@@ -1,11 +1,5 @@
-type F = (x: number) => number;
+type JSONValue = null | boolean | number | string | JSONValue[] | { [key: string]: JSONValue };
 
-function compose(functions: F[]): F {
-    
-    return function(x) {
-        for (let i = functions.length -1; i >= 0; i--){
-            x = functions[i](x)
-        }
-        return x
-    }
+function argumentsLength(...args: JSONValue[]): number {
+    return args.length
 };
