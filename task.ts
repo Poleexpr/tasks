@@ -1,21 +1,12 @@
-type Fn = (...params: number[]) => number
+type P = Promise<number>
 
-function memoize(fn: Fn): Fn {
-	const obj = {}
-	return function (...args) {
-		let json = JSON.stringify([...args])
-		if (obj.hasOwnProperty(json)) {
-			return obj[json]
-		} else {
-			obj[json] = fn(...args)
-			return obj[json]
-		}
-	}
+async function addTwoPromises(promise1: P, promise2: P): P {
+	return Promise.all([promise1, promise2]).then(responses => {
+		return responses.reduce((a, b) => a + b)
+	})
 }
 
-const sum: Fn = (a, b) => {
-	return a + b
-}
-const memoizedSum = memoize(sum)
+const promise1: P = new Promise(resolve => setTimeout(() => resolve(2), 20))
+const promise2: P = new Promise(resolve => setTimeout(() => resolve(5), 60))
 
-console.log(memoizedSum(2, 2))
+console.log(addTwoPromises(promise1, promise2))
