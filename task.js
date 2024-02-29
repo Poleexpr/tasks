@@ -1,9 +1,10 @@
 function cancellable(fn, args, t) {
-    var timeoutId = setTimeout(function () {
+    fn.apply(void 0, args);
+    var interval = setInterval(function () {
         fn.apply(void 0, args);
     }, t);
     var cancelFn = function () {
-        clearTimeout(timeoutId);
+        clearInterval(interval);
     };
     return cancelFn;
 }

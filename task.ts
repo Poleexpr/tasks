@@ -8,12 +8,13 @@ type JSONValue =
 type Fn = (...args: JSONValue[]) => void
 
 function cancellable(fn: Fn, args: JSONValue[], t: number): Function {
-	const timeoutId = setTimeout(() => {
+	fn(...args)
+	const interval = setInterval(() => {
 		fn(...args)
 	}, t)
 
-	const cancelFn: Function = () => {
-		clearTimeout(timeoutId)
+	const cancelFn = () => {
+		clearInterval(interval)
 	}
 
 	return cancelFn
