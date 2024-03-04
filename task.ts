@@ -1,21 +1,12 @@
-type JSONValue =
-	| null
-	| boolean
-	| number
-	| string
-	| JSONValue[]
-	| { [key: string]: JSONValue }
-type Fn = (...args: JSONValue[]) => void
+type Fn = (...params: any[]) => Promise<any>
 
-function cancellable(fn: Fn, args: JSONValue[], t: number): Function {
-	fn(...args)
-	const interval = setInterval(() => {
-		fn(...args)
-	}, t)
-
-	const cancelFn = () => {
-		clearInterval(interval)
+function timeLimit(fn: Fn, t: number): Fn {
+	return async function (...args) {
+		const r = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				reject('Time Limit Exceeded')
+			}, t)
+		})
+		return Promise.race([fn(...args), r])
 	}
-
-	return cancelFn
 }
