@@ -1,12 +1,29 @@
-type Fn = (...params: any[]) => Promise<any>
+class TimeLimitedCache {
+	cache: Map<number, any>
+	constructor() {
+		this.cache = new Map()
+	}
 
-function timeLimit(fn: Fn, t: number): Fn {
-	return async function (...args) {
-		const r = new Promise((resolve, reject) => {
-			setTimeout(() => {
-				reject('Time Limit Exceeded')
-			}, t)
+	set(key: number, value: number, duration: number): boolean {
+		let existed: boolean = this.cache.has(key)
+		if (existed) {
+			clearTimeout(this.cache.get(key).ref)
+		}
+
+		this.cache.set(key, {
+			value,
+			ref: setTimeout(() => {
+				this.cache.delete(key)
+			}, duration),
 		})
-		return Promise.race([fn(...args), r])
+		return existed
+	}
+
+	get(key: number): number {
+		return this.cache.has(key) ? this.cache.get(key).value : -1
+	}
+
+	count(): number {
+		return this.cache.size
 	}
 }
