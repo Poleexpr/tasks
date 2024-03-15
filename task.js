@@ -1,26 +1,11 @@
-var TimeLimitedCache = /** @class */ (function () {
-    function TimeLimitedCache() {
-        this.cache = new Map();
-    }
-    TimeLimitedCache.prototype.set = function (key, value, duration) {
-        var _this = this;
-        var existed = this.cache.has(key);
-        if (existed) {
-            clearTimeout(this.cache.get(key).ref);
+function debounce(fn, t) {
+    var timeOut;
+    return function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
         }
-        this.cache.set(key, {
-            value: value,
-            ref: setTimeout(function () {
-                _this.cache.delete(key);
-            }, duration),
-        });
-        return existed;
+        clearTimeout(timeOut);
+        timeOut = setTimeout(function () { return fn.apply(void 0, args); }, t);
     };
-    TimeLimitedCache.prototype.get = function (key) {
-        return this.cache.has(key) ? this.cache.get(key).value : -1;
-    };
-    TimeLimitedCache.prototype.count = function () {
-        return this.cache.size;
-    };
-    return TimeLimitedCache;
-}());
+}
