@@ -1,10 +1,22 @@
-type F = (...args: number[]) => void
-
-function debounce(fn: F, t: number): F {
-	let timeOut: ReturnType<typeof setTimeout>
-
-	return function (...args) {
-		clearTimeout(timeOut)
-		timeOut = setTimeout(() => fn(...args), t)
-	}
+var promiseAll = function (functions: any) {
+	return new Promise((resolve, reject) => {
+		if (functions.length === 0) {
+			resolve([])
+			return
+		}
+		const res: any[] = []
+		let resolvedCount = 0
+		functions.forEach(async (el: any, idx: any) => {
+			try {
+				const subResult = await el()
+				res[idx] = subResult
+				resolvedCount++
+				if (resolvedCount === functions.length) {
+					resolve(res)
+				}
+			} catch (err) {
+				reject(err)
+			}
+		})
+	})
 }
