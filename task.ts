@@ -1,20 +1,16 @@
-type JSONValue =
-	| null
-	| boolean
-	| number
-	| string
-	| JSONValue[]
-	| { [key: string]: JSONValue }
-type Obj = Record<string, JSONValue> | Array<JSONValue>
-
-function chunk(arr: number[], size: number): Obj[][] | any {
-	const result = []
-
-	for (let i = 0; i < arr.length; i += size) {
-		result.push(arr.slice(i, i + size))
+declare global {
+	interface Array<T> {
+		groupBy(fn: (item: T) => string): Record<string, T[]>
 	}
-
-	return result
 }
 
-console.log(chunk([1, 2, 3, 4, 5], 1))
+Array.prototype.groupBy = function (fn) {
+	const obj = {}
+	for (let i = 0; i < this.length; i++) {
+		obj[fn(this[i])]
+			? obj[fn(this[i])].push(this[i])
+			: (obj[fn(this[i])] = [this[i]])
+	}
+
+	return obj
+}
