@@ -1,16 +1,7 @@
-declare global {
-	interface Array<T> {
-		groupBy(fn: (item: T) => string): Record<string, T[]>
-	}
-}
+type JSONValue = null | boolean | number | string | JSONValue[] | { [key: string]: JSONValue };
+type Fn = (value: JSONValue) => number
 
-Array.prototype.groupBy = function (fn) {
-	const obj = {}
-	for (let i = 0; i < this.length; i++) {
-		obj[fn(this[i])]
-			? obj[fn(this[i])].push(this[i])
-			: (obj[fn(this[i])] = [this[i]])
-	}
-
-	return obj
-}
+function sortBy(arr: JSONValue[], fn: Fn): JSONValue[] {
+    let result =  arr.sort((a, b) => fn(a) - fn(b))
+    return result
+};
