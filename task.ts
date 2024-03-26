@@ -1,7 +1,15 @@
 type JSONValue = null | boolean | number | string | JSONValue[] | { [key: string]: JSONValue };
-type Fn = (value: JSONValue) => number
+type ArrayType = { "id": number } & Record<string, JSONValue>;
 
-function sortBy(arr: JSONValue[], fn: Fn): JSONValue[] {
-    let result =  arr.sort((a, b) => fn(a) - fn(b))
-    return result
+function join(arr1: ArrayType[], arr2: ArrayType[]): ArrayType[] {
+ 
+let joinedArray = {}
+let arrayConcat = arr1.concat(arr2)
+
+for (let i of arrayConcat){
+    let id = i.id
+    joinedArray[id] ? joinedArray[id] = {...joinedArray[id], ...i} : joinedArray[id] = i
+}
+
+return Object.values(joinedArray)
 };
