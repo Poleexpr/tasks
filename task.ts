@@ -1,15 +1,25 @@
-type JSONValue = null | boolean | number | string | JSONValue[] | { [key: string]: JSONValue };
-type ArrayType = { "id": number } & Record<string, JSONValue>;
+type MultiDimensionalArray = (number | MultiDimensionalArray)[]
 
-function join(arr1: ArrayType[], arr2: ArrayType[]): ArrayType[] {
- 
-let joinedArray = {}
-let arrayConcat = arr1.concat(arr2)
+var flat = function (
+	arr: MultiDimensionalArray,
+	n: number
+): MultiDimensionalArray {
+	if (n === 0) {
+		return arr
+	}
 
-for (let i of arrayConcat){
-    let id = i.id
-    joinedArray[id] ? joinedArray[id] = {...joinedArray[id], ...i} : joinedArray[id] = i
+	const result: MultiDimensionalArray = []
+
+	const subFlat = (array: MultiDimensionalArray, depth: number) => {
+		for (let a of array) {
+			Array.isArray(a) && depth < n ? subFlat(a, depth + 1) : result.push(a)
+		}
+		return result
+	}
+
+	return subFlat(arr, 0)
 }
 
-return Object.values(joinedArray)
-};
+console.log(
+	flat([1, 2, 3, [4, 5, 6], [7, 8, [9, 10, 11], 12], [13, 14, 15]], 1)
+)

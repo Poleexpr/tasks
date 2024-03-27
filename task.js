@@ -1,22 +1,15 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-function join(arr1, arr2) {
-    var joinedArray = {};
-    var arrayConcat = arr1.concat(arr2);
-    for (var _i = 0, arrayConcat_1 = arrayConcat; _i < arrayConcat_1.length; _i++) {
-        var i = arrayConcat_1[_i];
-        var id = i.id;
-        joinedArray[id] ? joinedArray[id] = __assign(__assign({}, joinedArray[id]), i) : joinedArray[id] = i;
+var flat = function (arr, n) {
+    if (n === 0) {
+        return arr;
     }
-    return Object.values(joinedArray);
-}
-;
+    var result = [];
+    var subFlat = function (array, depth) {
+        for (var _i = 0, array_1 = array; _i < array_1.length; _i++) {
+            var a = array_1[_i];
+            Array.isArray(a) && depth < n ? subFlat(a, depth + 1) : result.push(a);
+        }
+        return result;
+    };
+    return subFlat(arr, 0);
+};
+console.log(flat([1, 2, 3, [4, 5, 6], [7, 8, [9, 10, 11], 12], [13, 14, 15]], 1));
