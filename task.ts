@@ -1,25 +1,26 @@
-type MultiDimensionalArray = (number | MultiDimensionalArray)[]
-
-var flat = function (
-	arr: MultiDimensionalArray,
-	n: number
-): MultiDimensionalArray {
-	if (n === 0) {
-		return arr
+function compactObject(obj: any): any {
+	if (typeof obj !== 'object' || obj === null) {
+		return obj
 	}
-
-	const result: MultiDimensionalArray = []
-
-	const subFlat = (array: MultiDimensionalArray, depth: number) => {
-		for (let a of array) {
-			Array.isArray(a) && depth < n ? subFlat(a, depth + 1) : result.push(a)
+	if (Array.isArray(obj)) {
+		const resultArr = []
+		for (let i = 0; i < obj.length; i++) {
+			let val = compactObject(obj[i])
+			val && resultArr.push(val)
 		}
-		return result
+		return resultArr
 	}
 
-	return subFlat(arr, 0)
+	const compactObj = {}
+
+	for (let key in obj) {
+		const val = compactObject(obj[key])
+		if (val) {
+			compactObj[key] = val
+		}
+	}
+
+	return compactObj
 }
 
-console.log(
-	flat([1, 2, 3, [4, 5, 6], [7, 8, [9, 10, 11], 12], [13, 14, 15]], 1)
-)
+console.log(compactObject([null, 0, 5, [0], [false, 16]]))

@@ -1,15 +1,22 @@
-var flat = function (arr, n) {
-    if (n === 0) {
-        return arr;
+function compactObject(obj) {
+    if (typeof obj !== 'object' || obj === null) {
+        return obj;
     }
-    var result = [];
-    var subFlat = function (array, depth) {
-        for (var _i = 0, array_1 = array; _i < array_1.length; _i++) {
-            var a = array_1[_i];
-            Array.isArray(a) && depth < n ? subFlat(a, depth + 1) : result.push(a);
+    if (Array.isArray(obj)) {
+        var resultArr = [];
+        for (var i = 0; i < obj.length; i++) {
+            var val = compactObject(obj[i]);
+            val && resultArr.push(val);
         }
-        return result;
-    };
-    return subFlat(arr, 0);
-};
-console.log(flat([1, 2, 3, [4, 5, 6], [7, 8, [9, 10, 11], 12], [13, 14, 15]], 1));
+        return resultArr;
+    }
+    var compactObj = {};
+    for (var key in obj) {
+        var val = compactObject(obj[key]);
+        if (val) {
+            compactObj[key] = val;
+        }
+    }
+    return compactObj;
+}
+console.log(compactObject([null, 0, 5, [0], [false, 16]]));
