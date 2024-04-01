@@ -1,26 +1,16 @@
-function compactObject(obj: any): any {
-	if (typeof obj !== 'object' || obj === null) {
-		return obj
+class ArrayWrapper {
+	nums: number[];
+	
+	constructor(nums: number[]) {
+					this.nums = nums
 	}
-	if (Array.isArray(obj)) {
-		const resultArr = []
-		for (let i = 0; i < obj.length; i++) {
-			let val = compactObject(obj[i])
-			val && resultArr.push(val)
-		}
-		return resultArr
+	
+	valueOf(): number {
+					return this.nums.concat().reduce((a, b) => a + b, 0)
 	}
-
-	const compactObj = {}
-
-	for (let key in obj) {
-		const val = compactObject(obj[key])
-		if (val) {
-			compactObj[key] = val
-		}
+	
+	toString(): string {
+					return JSON.stringify(this.nums)
+					
 	}
-
-	return compactObj
-}
-
-console.log(compactObject([null, 0, 5, [0], [false, 16]]))
+};

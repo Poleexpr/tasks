@@ -1,22 +1,13 @@
-function compactObject(obj) {
-    if (typeof obj !== 'object' || obj === null) {
-        return obj;
+var ArrayWrapper = /** @class */ (function () {
+    function ArrayWrapper(nums) {
+        this.nums = nums;
     }
-    if (Array.isArray(obj)) {
-        var resultArr = [];
-        for (var i = 0; i < obj.length; i++) {
-            var val = compactObject(obj[i]);
-            val && resultArr.push(val);
-        }
-        return resultArr;
-    }
-    var compactObj = {};
-    for (var key in obj) {
-        var val = compactObject(obj[key]);
-        if (val) {
-            compactObj[key] = val;
-        }
-    }
-    return compactObj;
-}
-console.log(compactObject([null, 0, 5, [0], [false, 16]]));
+    ArrayWrapper.prototype.valueOf = function () {
+        return this.nums.concat().reduce(function (a, b) { return a + b; }, 0);
+    };
+    ArrayWrapper.prototype.toString = function () {
+        return JSON.stringify(this.nums);
+    };
+    return ArrayWrapper;
+}());
+;
