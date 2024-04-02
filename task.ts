@@ -1,16 +1,40 @@
-class ArrayWrapper {
-	nums: number[];
-	
-	constructor(nums: number[]) {
-					this.nums = nums
+class Calculator {
+
+	result: number
+
+	constructor(value: number) {
+					this.result = value
 	}
 	
-	valueOf(): number {
-					return this.nums.concat().reduce((a, b) => a + b, 0)
+	add(value: number): Calculator {
+				this.result += value
+				return this
 	}
 	
-	toString(): string {
-					return JSON.stringify(this.nums)
-					
+	subtract(value: number): Calculator {
+				this.result -= value
+				return this
 	}
-};
+	
+	multiply(value: number): Calculator {
+				this.result *= value
+				return this
+	}
+	
+	divide(value: number): Calculator {
+					if(value === 0){
+									throw 'Division by zero is not allowed'
+					}
+					this.result /= value
+					return this
+	}
+	
+	power(value: number): Calculator {
+					this.result **= value
+					return this
+	}
+	
+	getResult(): number {
+					return this.result
+	}
+}

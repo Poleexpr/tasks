@@ -1,13 +1,33 @@
-var ArrayWrapper = /** @class */ (function () {
-    function ArrayWrapper(nums) {
-        this.nums = nums;
+var Calculator = /** @class */ (function () {
+    function Calculator(value) {
+        this.result = value;
     }
-    ArrayWrapper.prototype.valueOf = function () {
-        return this.nums.concat().reduce(function (a, b) { return a + b; }, 0);
+    Calculator.prototype.add = function (value) {
+        this.result += value;
+        return this;
     };
-    ArrayWrapper.prototype.toString = function () {
-        return JSON.stringify(this.nums);
+    Calculator.prototype.subtract = function (value) {
+        this.result -= value;
+        return this;
     };
-    return ArrayWrapper;
+    Calculator.prototype.multiply = function (value) {
+        this.result *= value;
+        return this;
+    };
+    Calculator.prototype.divide = function (value) {
+        if (value === 0) {
+            throw 'Division by zero is not allowed';
+        }
+        this.result /= value;
+        return this;
+    };
+    Calculator.prototype.power = function (value) {
+        var _a;
+        (_a = this).result = Math.pow(_a.result, value);
+        return this;
+    };
+    Calculator.prototype.getResult = function () {
+        return this.result;
+    };
+    return Calculator;
 }());
-;
