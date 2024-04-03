@@ -1,40 +1,14 @@
-class Calculator {
-
-	result: number
-
-	constructor(value: number) {
-					this.result = value
-	}
-	
-	add(value: number): Calculator {
-				this.result += value
-				return this
-	}
-	
-	subtract(value: number): Calculator {
-				this.result -= value
-				return this
-	}
-	
-	multiply(value: number): Calculator {
-				this.result *= value
-				return this
-	}
-	
-	divide(value: number): Calculator {
-					if(value === 0){
-									throw 'Division by zero is not allowed'
-					}
-					this.result /= value
-					return this
-	}
-	
-	power(value: number): Calculator {
-					this.result **= value
-					return this
-	}
-	
-	getResult(): number {
-					return this.result
-	}
+function merge(
+	nums1: number[],
+	m: number,
+	nums2: number[],
+	n: number
+): number[] {
+	const arr1 = nums1.slice(0, m)
+	const arr2 = nums2.slice(0, n)
+	console.log(nums1.slice(0, m))
+	nums1 = arr1.concat(arr2).sort((a, b) => a - b)
+	return nums1
 }
+
+console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3))
