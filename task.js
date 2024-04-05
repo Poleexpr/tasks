@@ -1,12 +1,13 @@
-function removeElement(nums, val) {
+function removeDuplicates(nums) {
+    var obj = {};
     var k = 0;
     for (var i = 0; i < nums.length; i++) {
-        if (nums[i] !== val) {
+        if (!obj[nums[i]]) {
+            obj[nums[i]] = nums[i];
             nums[k] = nums[i];
             k++;
         }
     }
-    return k;
+    return [obj, k];
 }
-console.log(removeElement([3, 2, 2, 3], 3));
-console.log(removeElement([0, 1, 2, 2, 3, 0, 4, 2], 2));
+console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]));
