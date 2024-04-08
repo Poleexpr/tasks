@@ -1,15 +1,9 @@
-function removeDuplicates(nums: number[]): any {
-	let obj: any = {}
-	let k = 0
-	for (let i = 0; i < nums.length; i++) {
-		if (!obj[nums[i]]) {
-			obj[nums[i]] = nums[i]
-			nums[k] = nums[i]
-			k++
+function removeDuplicates(nums: number[]): number {
+	let k = 2
+	for (let i = 2; i < nums.length; i++) {
+		if (nums[i] !== nums[k - 2]) {
+			nums[k++] = nums[i]
 		}
 	}
-
-	return [obj, k]
+	return k
 }
-
-console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]))

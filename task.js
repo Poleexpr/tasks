@@ -1,13 +1,9 @@
 function removeDuplicates(nums) {
-    var obj = {};
-    var k = 0;
-    for (var i = 0; i < nums.length; i++) {
-        if (!obj[nums[i]]) {
-            obj[nums[i]] = nums[i];
-            nums[k] = nums[i];
-            k++;
+    var k = 2;
+    for (var i = 2; i < nums.length; i++) {
+        if (nums[i] !== nums[k - 2]) {
+            nums[k++] = nums[i];
         }
     }
-    return [obj, k];
+    return k;
 }
-console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]));
