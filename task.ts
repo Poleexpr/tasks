@@ -1,9 +1,10 @@
-function removeDuplicates(nums: number[]): number {
-	let k = 2
-	for (let i = 2; i < nums.length; i++) {
-		if (nums[i] !== nums[k - 2]) {
-			nums[k++] = nums[i]
-		}
+function majorityElement(nums: number[]): number {
+	const map = new Map()
+	for (let num of nums) {
+		let g = (map.get(num) ?? 0) + 1
+		map.set(num, g)
+		if (g > nums.length / 2) return num
 	}
-	return k
 }
+
+console.log(majorityElement([2, 2, 1, 1, 1, 2, 2]))
