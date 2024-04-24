@@ -1,9 +1,9 @@
 function maxProfit(prices) {
-    var min = prices[0];
-    var max = 0;
-    for (var i = 1; i < prices.length; i++) {
-        min = Math.min(min, prices[i]);
-        max = Math.max(max, prices[i] - min);
+    var r = 0;
+    for (var i = 0; i < prices.length; i++) {
+        if (prices[i + 1] > prices[i]) {
+            r += prices[i + 1] - prices[i];
+        }
     }
-    return max;
+    return r;
 }
