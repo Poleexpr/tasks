@@ -1,11 +1,8 @@
-function containsDuplicate(nums) {
-    var obj = {};
-    var k = 0;
-    for (var i = 0; i < nums.length; i++) {
-        obj.hasOwnProperty(nums[i]) ? (obj[nums[i]] += 1) : (obj[nums[i]] = 0);
+function singleNumber(nums) {
+    var result = nums[0];
+    for (var i = 1; i < nums.length; i++) {
+        result = result ^ nums[i];
     }
-    console.log(obj);
-    var more = function (m) { return m >= 1; };
-    return Object.values(obj).some(more);
+    return result;
 }
-console.log(containsDuplicate([1, 2, 3, 1]));
+console.log(singleNumber([1, 2, 3, 1]));
